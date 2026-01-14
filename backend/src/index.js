@@ -5,7 +5,7 @@ const app = new Hono();
 
 // CORS 설정
 app.use('/*', cors({
-  origin: '*',
+  origin: 'https://20260114cicd.pages.dev',
   allowMethods: ['GET', 'POST', 'OPTIONS'],
   allowHeaders: ['Content-Type'],
 }));
@@ -103,11 +103,11 @@ app.get('/api/quizzes', (c) => {
 app.get('/api/quizzes/:id', (c) => {
   const id = parseInt(c.req.param('id'));
   const quiz = quizzes.find(q => q.id === id);
-  
+
   if (!quiz) {
     return c.json({ error: 'Quiz not found' }, 404);
   }
-  
+
   const { answer, explanation, ...quizData } = quiz;
   return c.json(quizData);
 });
@@ -116,21 +116,21 @@ app.get('/api/quizzes/:id', (c) => {
 app.post('/api/quizzes/submit', async (c) => {
   const body = await c.req.json();
   const { answers } = body; // [{ quizId: 1, selectedAnswer: 0 }, ...]
-  
+
   if (!answers || !Array.isArray(answers)) {
     return c.json({ error: 'Invalid answers format' }, 400);
   }
-  
+
   let correctCount = 0;
   const results = answers.map(({ quizId, selectedAnswer }) => {
     const quiz = quizzes.find(q => q.id === quizId);
     if (!quiz) {
       return { quizId, correct: false, error: 'Quiz not found' };
     }
-    
+
     const isCorrect = quiz.answer === selectedAnswer;
     if (isCorrect) correctCount++;
-    
+
     return {
       quizId,
       correct: isCorrect,
@@ -138,7 +138,7 @@ app.post('/api/quizzes/submit', async (c) => {
       explanation: quiz.explanation
     };
   });
-  
+
   return c.json({
     totalQuestions: answers.length,
     correctAnswers: correctCount,
@@ -146,5 +146,8 @@ app.post('/api/quizzes/submit', async (c) => {
     results
   });
 });
+
+
+
 
 export default app;
