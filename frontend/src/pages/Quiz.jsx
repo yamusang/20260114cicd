@@ -58,7 +58,7 @@ function Quiz({ quizzes, onSubmit }) {
                             ></div>
                         </div>
                         <span className="quiz-progress-text">
-                            {answeredCount}개 답변
+                            {answeredCount}개의 답변
                         </span>
                     </div>
                 </div>
