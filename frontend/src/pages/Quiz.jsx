@@ -40,7 +40,7 @@ function Quiz({ quizzes, onSubmit }) {
     const answeredCount = Object.keys(selectedAnswers).length;
 
     if (!currentQuiz) {
-        return <div className="loading">퀴즈를 불러오는 중...</div>;
+        return <div className="loading">퀴즈를 불러오는 중입니다...</div>;
     }
 
     return (
