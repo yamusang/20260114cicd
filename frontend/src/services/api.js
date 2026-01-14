@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://20260114cicd.ttobiyam.workers.dev:8787';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "https://20260114cicd.ttobiyam.workers.dev")
+    .replace(/\/$/, "");
 
 export const api = {
     // 모든 퀴즈 가져오기
